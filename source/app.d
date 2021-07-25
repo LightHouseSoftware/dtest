@@ -4,8 +4,8 @@ import entities;
 
 void main()
 {
-	string json = readFileAsString("files/1.16.5.json");
-	Root data = json.deserialize!Root;
+    string json = readFileAsString("files/1.16.5.json");
+    Root data = json.deserialize!Root;
 
     JvmArgument[] jvmArgs = data.arguments.jvm;
 
