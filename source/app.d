@@ -1,4 +1,6 @@
 import std.stdio;
+import std.algorithm;
+import std.sumtype;
 import asdf;
 import entities;
 
@@ -9,7 +11,25 @@ void main()
 
     JvmArgument[] jvmArgs = data.arguments.jvm;
 
-    writeln(jvmArgs.length);
+    jvmArgs
+        .filter!(a => isString(a))
+        .each!(a => a.writeln);
+}
+
+bool isString(JvmArgument arg)
+{
+    return arg.match!(
+        (string s) => true,
+        _ => false
+    );
+}
+
+bool isJvmArgumentObj(JvmArgument arg)
+{
+    return arg.match!(
+        (JvmArgumentObj obj) => true,
+        _ => false
+    );
 }
 
 string readFileAsString(string path)
