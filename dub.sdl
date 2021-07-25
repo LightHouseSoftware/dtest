@@ -1,0 +1,6 @@
+name "dtest"
+description ""
+authors "Bagomot"
+copyright "Copyright © 2021, LightHouse Software"
+license "ESL"
+dependency "asdf" version="~>0.7.11"
