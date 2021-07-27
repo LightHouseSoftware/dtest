@@ -3,23 +3,32 @@ module entities;
 import std.string;
 import std.sumtype;
 import asdf;
+import mir.algebraic_alias.json;
+import mir.algebraic;
 
 import std.stdio;
+import std.string;
 
-alias JvmArgument = SumType!(JvmArgumentObj, string);
+//alias JvmArg = SumType!(JvmArgumentObj, string);
+alias JsonValue = Variant!(JvmArgumentObj, string);
 
 struct Arguments {
     @serdeKeys("jvm")
     JvmArgument[] jvm;
+}
+
+struct JvmArgument {
+    Variant!(JvmArgumentObj, string) arg;
+    alias arg this;
 
     SerdeException deserializeFromAsdf(Asdf data) {
 
-        JvmArgument arg;
-        if (auto exc = deserializeValue(data, arg)) {
+        JsonValue jv;
+        if(auto exc = deserializeValue(data, jv)) {
             return exc;
         }
-        
-        jvm ~= arg;
+
+        this = jv;
     
         return null;
     }

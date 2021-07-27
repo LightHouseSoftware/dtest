@@ -1,7 +1,8 @@
 import std.stdio;
 import std.algorithm;
-import std.sumtype;
 import asdf;
+import mir.algebraic_alias.json;
+import mir.algebraic;
 import entities;
 
 void main()
@@ -9,28 +10,28 @@ void main()
     string json = readFileAsString("files/1.16.5.json");
     Root data = json.deserialize!Root;
 
-    JvmArgument[] jvmArgs = data.arguments.jvm;
+   auto jvmArgs = data.arguments.jvm;
 
-    jvmArgs
-        .filter!(a => isString(a))
-        .each!(a => a.writeln);
+    // jvmArgs
+    //     .filter!(a => isString(a))
+    //     .each!(a => a.writeln);
 }
 
-bool isString(JvmArgument arg)
-{
-    return arg.match!(
-        (string s) => true,
-        _ => false
-    );
-}
+// bool isString(JvmArgument arg)
+// {
+//     return arg.match!(
+//         (string s) => true,
+//         _ => false
+//     );
+// }
 
-bool isJvmArgumentObj(JvmArgument arg)
-{
-    return arg.match!(
-        (JvmArgumentObj obj) => true,
-        _ => false
-    );
-}
+// bool isJvmArgumentObj(JvmArgument arg)
+// {
+//     return arg.match!(
+//         (JvmArgumentObj obj) => true,
+//         _ => false
+//     );
+// }
 
 string readFileAsString(string path)
 {
