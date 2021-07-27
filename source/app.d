@@ -2,7 +2,6 @@ import std.stdio;
 import std.algorithm;
 import asdf;
 import mir.algebraic_alias.json;
-import mir.algebraic;
 import entities;
 
 void main()
@@ -10,7 +9,10 @@ void main()
     string json = readFileAsString("files/1.16.5.json");
     Root data = json.deserialize!Root;
 
-   auto jvmArgs = data.arguments.jvm;
+   JsonAlgebraic[] jvmArgs = data.arguments.jvm;
+   jvmArgs
+        .filter!(a => a.kind == JsonAlgebraic.Kind.string)
+        .each!(a => writeln(a));
 
     // jvmArgs
     //     .filter!(a => isString(a))
